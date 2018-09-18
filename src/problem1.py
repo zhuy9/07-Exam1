@@ -2,8 +2,8 @@
 Exam 1, problem 1.
 
 Authors: David Mutchler, Vibha Alangar, Valerie Galluzzi, Mark Hays,
-         Amanda Stouder, their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         Amanda Stouder, their colleagues and Yuchen ZHU
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -89,9 +89,34 @@ def problem1a(rectangle, square, thickness, window):
       :type window:    rg.RoseWindow
     """
     # --------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.  SEE THE PICTURES in the PDF!
+    # DONE: 2. Implement and test this function.  SEE THE PICTURES in the PDF!
     #          Tests have been written for you (above).
     # --------------------------------------------------------------------------
+    rectangle.attach_to(window)
+    square.attach_to(window)
+
+    if rectangle.corner_1.x > rectangle.corner_2.x:
+        temp1 = rectangle.corner_1.x
+        rectangle.corner_1.x = rectangle.corner_2.x
+        rectangle.corner_2.x = temp1
+
+    # a is the x-coordinate of mid point on top side
+    a = 0.5 * (rectangle.corner_2.x - rectangle.corner_1.x) + rectangle.corner_1.x
+
+    if rectangle.corner_1.y > rectangle.corner_2.y:
+        temp2 = rectangle.corner_1.y
+        rectangle.corner_1.y = rectangle.corner_2.y
+        rectangle.corner_2.y = temp2
+
+    # b is the y-coordinate of mid point on top side
+    b = rectangle.corner_1.y
+
+    line = rg.Line(square.center, rg.Point(a, b))
+    line.thickness = thickness
+    line.color = rectangle.outline_color
+    line.attach_to(window)
+
+    window.render()
 
 
 def run_test_problem1b():
@@ -149,11 +174,15 @@ def problem1b(point, win, width, height, color):
       :type color:  str
     """
     # --------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.  SEE THE PICTURES in the PDF!
+    # DONE: 3. Implement and test this function.  SEE THE PICTURES in the PDF!
     #          Tests have been written for you (above).
     # --------------------------------------------------------------------------
 
+    ellipse = rg.Ellipse(rg.Point(point.x - 0.5*width, point.y), rg.Point(point.x + 0.5*width, point.y + height))
+    ellipse.fill_color = color
+    ellipse.attach_to(win)
 
+    win.render()
 # ------------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ------------------------------------------------------------------------------
